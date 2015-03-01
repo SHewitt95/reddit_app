@@ -18,19 +18,18 @@ def main():
 	subreddit = getSubreddit()
 	number_of_subred = getNumber("How many topics do you want: ")
 	subreddit = subreddit.get_hot(limit=number_of_subred)
-	
-	list = [str(item) for item in subreddit] #Create list of all found submissions
-
+	try:
+		list = [str(item) for item in subreddit] #Create list of all found submissions
+	except:
+		print("The subreddit does not exist.")
+		quit()
+		
 	for item in list: #Loop through list to print all found submissions
 		print(item)
 	
 def getSubreddit():
-	submissions = None
-	try:
-		subreddit = raw_input("Please enter name of subreddit: ") #Ask user for name of desired subreddit
-		submissions = r.get_subreddit(subreddit)
-	except:
-		print("The subreddit %s does not exist." %(subreddit))
+	subreddit = raw_input("Please enter name of subreddit: ") #Ask user for name of desired subreddit
+	submissions = r.get_subreddit(subreddit)
 	
 	return submissions
 
