@@ -50,18 +50,4 @@ def getNumber(prompt):
 	
 if (__name__ == "__main__"):
 	main()
-	'''
-	r = praw.Reddit(user_agent='my_cool_application_miami') #Create reddit object
-	
-	try:
-		subreddit = raw_input("Please enter name of subreddit: ") #Ask user for name of desired subreddit
-		
-		submissions = r.get_subreddit(subreddit).get_hot(limit=30) #Get first 30 submissions from hot section of subreddit
-		list = [str(item) for item in submissions] #Create list of all found submissions
-
-		for item in list: #Loop through list to print all found submissions
-			print(item)
-	except:
-		print("The subreddit %s does not exist." %(subreddit))
-	'''	
 		
