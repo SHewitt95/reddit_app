@@ -12,32 +12,62 @@ Link to methods: https://praw.readthedocs.org/en/v2.1.20/
 '''
 
 import praw #Import package with reddit library
-from Tkinter import *
+import Tkinter as Tk
+import tkMessageBox
 
 class Reddit_App:
-
+	
 	def __init__(self):
-		r = praw.Reddit(user_agent='my_cool_application_miami') #Create reddit object
-		self.login = Tk()
-		self.login.wm_title("Reddit Login")
-		self.main = Tk()
+		#Create PRAW reddit object
+		self.r = praw.Reddit(user_agent='my_cool_application_miami') 
+		
+		# Create login window.
+		self.make_login()
+		
+		# Create main window.
+		self.make_main()
+		
+		
+	def make_main(self):
+		# Create main window. Hide main window.
+		self.main = Tk.Tk()
 		self.main.wm_title("Reddit")
+		self.main.withdraw()
 
-		self.login_label_username = Label(self.login, text="Username:")
-		self.login_label_password = Label(self.login, text="Password:")
+	
+	def make_login(self):
+		# Create login window.
+		self.login = Tk.Tk()
+		
+		self.login.wm_title("Reddit Login")
+		# Creates labels for login window and places them.
+		self.login_label_username = Tk.Label(self.login, text="Username:")
+		self.login_label_password = Tk.Label(self.login, text="Password:")
 		self.login_label_username.grid(row=0,column=0)
 		self.login_label_password.grid(row=1,column=0)
 
-		self.login_username = Entry(self.login)
-		self.login_password = Entry(self.login)
-		self.login_username.grid(row=0,column=1)
-		self.login_password.grid(row=1,column=1)
+		# Creates Entry places for login window. Places them.
+		self.login_username = Tk.StringVar()
+		Tk.Entry(self.login).grid(row=0,column=1)
+		self.login_password = Tk.StringVar()
+		Tk.Entry(self.login).grid(row=1,column=1)
 
-		self.login_submit_button = Button(self.login, text="Submit")
+		# Creates 'submit' button for login window. Places it. Binds button to submit function.
+		self.login_submit_button = Tk.Button(self.login, text="Submit", command=self.submit)
 		self.login_submit_button.grid(row=2,columnspan=2)
 		
-		self.login.mainloop()	
-		self.main.mainloop()
+	
+	def submit(self):
+		Username = str(self.login_username.get())
+		Password = str(self.login_password.get())
+		
+		try:
+			self.r.login(Username, Password)
+			self.login.withdraw()
+			self.main.deiconify()
+		except:
+			tkMessageBox.showinfo("Error", "Invalid password or username.")
+		#print("Hello!")
 		
 	def main(self):
 		subreddit = getSubreddit()
@@ -72,12 +102,13 @@ class Reddit_App:
 			
 		return number
 
-
-
-
 	
 if (__name__ == "__main__"):
-	Reddit_App()
+	# Initializes app.
+	app = Reddit_App()
+	
+	# Keeps app on screen.
+	Tk.mainloop()
 	
 '''
 -Buttons on GUI can be equivalent to numbers in dictionary-as-switch.
