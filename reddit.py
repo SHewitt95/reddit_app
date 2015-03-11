@@ -18,7 +18,19 @@ r = praw.Reddit(user_agent='my_cool_application_miami') #Create reddit object
 login = Tk()
 main = Tk()
 
-login_frame = Frame(login, width=200, height=200)
+login_label_username = Label(login, text="Username:")
+login_label_password = Label(login, text="Password:")
+login_label_username.grid(row=0,column=0)
+login_label_password.grid(row=1,column=0)
+
+login_username = Entry(login)
+login_password = Entry(login)
+login_username.grid(row=0,column=1)
+login_password.grid(row=1,column=1)
+
+login_submit_button = Button(login, text="Submit")
+login_submit_button.grid(row=2,columnspan=2)
+
 
 def main():
 	subreddit = getSubreddit()
@@ -56,7 +68,8 @@ def getNumber(prompt):
 	
 if (__name__ == "__main__"):
 	main()
-	
+
+login.mainloop()	
 main.mainloop()
 	
 '''
