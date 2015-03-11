@@ -50,7 +50,7 @@ class Reddit_App:
 		self.login_username = Tk.StringVar()
 		Tk.Entry(self.login, textvariable=self.login_username).grid(row=0,column=1)
 		self.login_password = Tk.StringVar()
-		Tk.Entry(self.login, textvariable=self.login_password).grid(row=1,column=1)
+		Tk.Entry(self.login, textvariable=self.login_password, show="*").grid(row=1,column=1)
 
 		# Creates 'submit' button for login window. Places it. Binds button to submit function.
 		self.login_submit_button = Tk.Button(self.login, text="Submit", command=self.submit)
@@ -58,7 +58,7 @@ class Reddit_App:
 		
 	
 	def submit(self):
-		#Username and Password textvariables
+		#Username and Password are set to textvariable from make_login Entry initialization.
 		Username = self.login_username.get()
 		Password = self.login_password.get()
 		
@@ -68,7 +68,6 @@ class Reddit_App:
 			self.main.deiconify()
 		except:
 			tkMessageBox.showinfo("Error", "Invalid password or username.")
-		#print("Hello!")
 		
 	def main(self):
 		subreddit = getSubreddit()
