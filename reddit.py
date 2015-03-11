@@ -12,7 +12,13 @@ Link to methods: https://praw.readthedocs.org/en/v2.1.20/
 '''
 
 import praw #Import package with reddit library
+from Tkinter import *
+
 r = praw.Reddit(user_agent='my_cool_application_miami') #Create reddit object
+login = Tk()
+main = Tk()
+
+login_frame = Frame(login, width=200, height=200)
 
 def main():
 	subreddit = getSubreddit()
@@ -50,4 +56,11 @@ def getNumber(prompt):
 	
 if (__name__ == "__main__"):
 	main()
-		
+	
+main.mainloop()
+	
+'''
+-Buttons on GUI can be equivalent to numbers in dictionary-as-switch.
+-Establish what options users can select from program.
+-Allow ability to login if desired. Have if-statements for when user tries option that requires logging in, but isn't logged in.
+'''
