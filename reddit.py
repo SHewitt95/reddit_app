@@ -48,9 +48,9 @@ class Reddit_App:
 
 		# Creates Entry places for login window. Places them.
 		self.login_username = Tk.StringVar()
-		Tk.Entry(self.login).grid(row=0,column=1)
+		Tk.Entry(self.login, textvariable=self.login_username).grid(row=0,column=1)
 		self.login_password = Tk.StringVar()
-		Tk.Entry(self.login).grid(row=1,column=1)
+		Tk.Entry(self.login, textvariable=self.login_password).grid(row=1,column=1)
 
 		# Creates 'submit' button for login window. Places it. Binds button to submit function.
 		self.login_submit_button = Tk.Button(self.login, text="Submit", command=self.submit)
@@ -58,8 +58,9 @@ class Reddit_App:
 		
 	
 	def submit(self):
-		Username = str(self.login_username.get())
-		Password = str(self.login_password.get())
+		#Username and Password textvariables
+		Username = self.login_username.get()
+		Password = self.login_password.get()
 		
 		try:
 			self.r.login(Username, Password)
