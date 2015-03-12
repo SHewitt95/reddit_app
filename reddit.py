@@ -14,6 +14,7 @@ Link to methods: https://praw.readthedocs.org/en/v2.1.20/
 import praw #Import package with reddit library
 import Tkinter as Tk
 import tkMessageBox
+import webbrowser
 
 class Reddit_App:
 	
@@ -27,32 +28,37 @@ class Reddit_App:
 		# Create main window.
 		self.make_main()
 		
-		
+	def test(self):
+		tkMessageBox.showinfo("Hey!", "Listen!")
+
+	
 	def make_main(self):
 		# Create main window. Hide main window.
 		self.main = Tk.Tk()
+		self.main.resizable(width=Tk.FALSE, height=Tk.FALSE)
 		self.main.wm_title("Reddit")
 		
 		# Create top frame. Will hold 2 buttons.
-		self.top_frame = Frame(self.main, width=200, height=100)
-		self.top_frame.pack(side=TOP)
+		self.top_frame = Tk.Frame(self.main, width=200, height=100)
+		self.top_frame.pack(side=Tk.TOP)
 		
 		# Create bottom frame. Will hold 2 buttons.
-		self.bottom_frame = Frame(self.main, width=200, height=100)
-		self.bottom_frame.pack(side=BOTTOM)
+		self.bottom_frame = Tk.Frame(self.main, width=200, height=100)
+		self.bottom_frame.pack(side=Tk.BOTTOM)
 		
 		# Create main window's 4 primary buttons.
-		self.button1 = Button(self.top_frame, text="Get top submissions")
-		self.button2 = Button(self.top_frame, text="Get saved links")
-		self.button3 = Button(self.bottom_frame, text="Create subreddit")
-		self.button4 = Button(self.bottom_frame, text="Reel in Redditor")
+		self.button1 = Tk.Button(self.top_frame, text="Get top submissions", width=20, height=5, command=self.test)
+		self.button2 = Tk.Button(self.top_frame, text="Get saved links",width=20, height=5, command=self.test)
+		self.button3 = Tk.Button(self.bottom_frame, text="Create subreddit",width=20, height=5, command=self.test)
+		self.button4 = Tk.Button(self.bottom_frame, text="Reel in Redditor",width=20, height=5, command=self.test)
 		
 		# Packs main window's 4 primary buttons
-		self.button1.pack(side=LEFT)
-		self.button2.pack(side=LEFT)
-		self.button3.pack(side=LEFT)
-		self.button4.pack(side=LEFT)
+		self.button1.pack(side=Tk.LEFT)
+		self.button2.pack(side=Tk.RIGHT)
+		self.button3.pack(side=Tk.LEFT)
+		self.button4.pack(side=Tk.RIGHT)
 		
+		# Hides main window while user logs in.
 		self.main.withdraw()
 
 	
@@ -60,12 +66,15 @@ class Reddit_App:
 		# Create login window.
 		self.login = Tk.Tk()
 		self.login.wm_title("Reddit Login")
+		self.login.minsize(width=200, height=75)
+		self.login.maxsize(width=200, height=75)
+		self.login.resizable(width=Tk.FALSE, height=Tk.FALSE)
 		
 		# Creates labels for login window and places them.
 		self.login_label_username = Tk.Label(self.login, text="Username:")
 		self.login_label_password = Tk.Label(self.login, text="Password:")
-		self.login_label_username.grid(row=0,column=0)
-		self.login_label_password.grid(row=1,column=0)
+		self.login_label_username.grid(row=0,column=0, sticky=Tk.E)
+		self.login_label_password.grid(row=1,column=0, sticky=Tk.E)
 
 		# Creates Entry places for login window. Places them.
 		self.login_username = Tk.StringVar()
@@ -83,6 +92,7 @@ class Reddit_App:
 		Username = self.login_username.get()
 		Password = self.login_password.get()
 		
+		# Attempts to log in. If it fails, shows error message and allows chance to login again.
 		try:
 			self.r.login(Username, Password)
 			self.login.withdraw()
