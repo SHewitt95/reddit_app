@@ -32,14 +32,35 @@ class Reddit_App:
 		# Create main window. Hide main window.
 		self.main = Tk.Tk()
 		self.main.wm_title("Reddit")
+		
+		# Create top frame. Will hold 2 buttons.
+		self.top_frame = Frame(self.main, width=200, height=100)
+		self.top_frame.pack(side=TOP)
+		
+		# Create bottom frame. Will hold 2 buttons.
+		self.bottom_frame = Frame(self.main, width=200, height=100)
+		self.bottom_frame.pack(side=BOTTOM)
+		
+		# Create main window's 4 primary buttons.
+		self.button1 = Button(self.top_frame, text="Get top submissions")
+		self.button2 = Button(self.top_frame, text="Get saved links")
+		self.button3 = Button(self.bottom_frame, text="Create subreddit")
+		self.button4 = Button(self.bottom_frame, text="Reel in Redditor")
+		
+		# Packs main window's 4 primary buttons
+		self.button1.pack(side=LEFT)
+		self.button2.pack(side=LEFT)
+		self.button3.pack(side=LEFT)
+		self.button4.pack(side=LEFT)
+		
 		self.main.withdraw()
 
 	
 	def make_login(self):
 		# Create login window.
 		self.login = Tk.Tk()
-		
 		self.login.wm_title("Reddit Login")
+		
 		# Creates labels for login window and places them.
 		self.login_label_username = Tk.Label(self.login, text="Username:")
 		self.login_label_password = Tk.Label(self.login, text="Password:")
@@ -107,8 +128,12 @@ if (__name__ == "__main__"):
 	# Initializes app.
 	app = Reddit_App()
 	
-	# Keeps app on screen.
-	Tk.mainloop()
+	# Try...except catches error if user closes out login window.
+	try:
+		# Keeps app on screen.
+		Tk.mainloop()
+	except:
+		pass
 	
 '''
 -Buttons on GUI can be equivalent to numbers in dictionary-as-switch.
